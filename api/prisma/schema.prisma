@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql" // ou "mysql", "sqlite", etc.
+  url      = env("DATABASE_URL")
+}
+
+model Livro {
+  id            Int        @id @default(autoincrement())
+  titulo        String     @db.VarChar(200)
+  autor         String     @db.VarChar(100)
+  isbn          String     @unique @db.VarChar(20)
+  editora       String     @db.VarChar(100)
+  anoPublicacao Int
+  genero        String     @db.VarChar(50)
+  sinopse       String     @db.Text
+  paginas       Int
+  idioma        String     @db.VarChar(30)
+  dataCadastro  DateTime   @default(now())
+  registros     Registro[]
+}
+
+model Usuario {
+  id           Int         @id @default(autoincrement())
+  nome         String      @db.VarChar(100)
+  email        String      @unique @db.VarChar(100)
+  senha        String      @db.VarChar(255)
+  tipo         TipoUsuario @default(COMUM)
+  dataCadastro DateTime    @default(now())
+  registros    Registro[]
+}
+
+model Registro {
+  id              Int           @id @default(autoincrement())
+  livroId         Int
+  usuarioId       Int
+  comentario      String?       @db.Text // Comentário sobre o progresso de leitura
+  statusLeitura   StatusLeitura // Status de leitura (Lido, Lendo, etc.)
+  totalPaginas    Int? // Total de páginas do livro
+  paginaAtual     Int? // Página atual do progresso de leitura
+  dataAtualizacao DateTime      @default(now()) // Data da última atualização do progresso
+  livro           Livro         @relation(fields: [livroId], references: [id])
+  usuario         Usuario       @relation(fields: [usuarioId], references: [id])
+}
+
+enum TipoUsuario {
+  ADMIN
+  COMUM
+}
+
+enum StatusLeitura {
+  LIDO
+  LENDO
+  RELENDO
+  QUERO_LER
+  ABANDONADO
+}
