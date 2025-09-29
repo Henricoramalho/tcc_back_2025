@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "api-biblioteca-virtual",
   "version": "1.0.0",
   "main": "api/server.js",
   "scripts": {
@@ -7,16 +7,17 @@
     "postinstall": "prisma migrate dev --name init && prisma generate"
   },
   "keywords": [],
-  "author": "",
+  "author": "Henricoramalho",
   "license": "ISC",
-  "description": "",
+  "description": "Projeto Biblioteca Virtual TCC Node.js Prisma JWT",
   "dependencies": {
     "@prisma/client": "^6.14.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.14.0"
   },
   "devDependencies": {
     "prisma": "^6.14.0"
