@@ -1,10 +1,11 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "api/server.js",
   "scripts": {
-    "dev": "npx nodemon server.js",
-    "start": "node server.js"
+    "dev": "npx nodemon api/server.js",
+    "postinstall": "prisma migrate dev --name init && prisma generate",
+    "start": "node api/server.js"
   },
   "keywords": [],
   "author": "",
