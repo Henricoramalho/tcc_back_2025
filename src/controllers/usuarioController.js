@@ -1,5 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const bcrypt = require("bcrypt");
+
 
 module.exports = {
   async getAll(req, res) {
@@ -14,9 +16,24 @@ module.exports = {
   },
 
   async create(req, res) {
-    const data = req.body;
-    const novoUsuario = await prisma.usuario.create({ data });
+  try {
+    const { nome, email, senha } = req.body;
+
+    const hash = await bcrypt.hash(senha, 10);
+
+    const novoUsuario = await prisma.usuario.create({ 
+      data: {
+        nome,
+        email,
+        senha: hash
+      }
+    });
+
     res.status(201).json(novoUsuario);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Erro ao criar usuário" });
+  }
   },
 
   async update(req, res) {
