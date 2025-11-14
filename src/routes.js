@@ -73,7 +73,7 @@ routes.post("/livros", livroController.create);
 routes.get("/livros/:id", livroController.readOne);
 routes.get("/livros", livroController.read);
 routes.put("/livros/:id", livroController.update);
-routes.delete("livros/:id", livroController.remove);
+routes.delete("/livros/:id", livroController.remove);
 
 
 
