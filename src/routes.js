@@ -85,7 +85,7 @@ routes.get("/usuarios", autenticarToken, isAdmin, usuarioController.getAll);
 routes.get("/usuarios/:id", autenticarToken, isAdmin, usuarioController.getOne);
 
 // Usuário se cadastra com validação
-routes.post("/usuarios", validateUser, usuarioController.create);
+routes.post("/usuarios",  usuarioController.create);
 
 // Somente admin pode editar ou remover usuários
 routes.put("/usuarios/:id", autenticarToken, isAdmin, usuarioController.update);
