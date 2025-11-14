@@ -72,13 +72,10 @@ routes.get("/", (req, res) => {
 routes.post("/livros", livroController.create);
 routes.get("/livros/:id", livroController.readOne);
 routes.get("/livros", livroController.read);
-routes.get("/livros/:id", livroController.update);
-routes.get("livros/:id", livroController.remove);
+routes.put("/livros/:id", livroController.update);
+routes.delete("livros/:id", livroController.remove);
 
-// Só admin pode criar, atualizar e remover livros
-routes.post("/livros", autenticarToken, livroController.create);
-routes.put("/livros/:id", autenticarToken, livroController.update);
-routes.delete("/livros/:id", autenticarToken, livroController.remove);
+
 
 // ------------------- USUÁRIOS -------------------
 routes.get("/usuarios", autenticarToken, isAdmin, usuarioController.getAll);
