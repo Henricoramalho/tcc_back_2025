@@ -12,7 +12,6 @@ module.exports = {
         return res.status(400).json({ error: 'Email e senha são obrigatórios' });
       }
 
-      // Buscar usuário pelo email
       const usuario = await prisma.usuario.findUnique({
         where: { email }
       });
@@ -21,14 +20,12 @@ module.exports = {
         return res.status(401).json({ error: 'Credenciais inválidas' });
       }
 
-      // Verificar senha
       const senhaValida = await bcrypt.compare(senha, usuario.senha);
       
       if (!senhaValida) {
         return res.status(401).json({ error: 'Credenciais inválidas' });
       }
 
-      // Gerar token JWT
       const token = jwt.sign(
         { 
           id: usuario.id, 
@@ -39,11 +36,11 @@ module.exports = {
         { expiresIn: '24h' }
       );
 
-      // Remover senha do retorno
       const { senha: _, ...usuarioSemSenha } = usuario;
 
       res.json({
         token,
+        userId: usuario.id,        
         usuario: usuarioSemSenha
       });
 
