@@ -21,16 +21,16 @@ module.exports = {
       }
 
       const senhaValida = await bcrypt.compare(senha, usuario.senha);
-      
+
       if (!senhaValida) {
         return res.status(401).json({ error: 'Credenciais inválidas' });
       }
 
       const token = jwt.sign(
-        { 
-          id: usuario.id, 
-          email: usuario.email, 
-          tipo: usuario.tipo 
+        {
+          id: usuario.id,
+          email: usuario.email,
+          tipo: usuario.tipo
         },
         process.env.JWT_SECRET || 'seuSegredoJWT',
         { expiresIn: '24h' }
@@ -40,7 +40,7 @@ module.exports = {
 
       res.json({
         token,
-        userId: usuario.id,        
+        userId: usuario.id,
         usuario: usuarioSemSenha
       });
 

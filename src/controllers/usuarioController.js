@@ -16,24 +16,24 @@ module.exports = {
   },
 
   async create(req, res) {
-  try {
-    const { nome, email, senha } = req.body;
+    try {
+      const { nome, email, senha } = req.body;
 
-    const hash = await bcrypt.hash(senha, 10);
+      const hash = await bcrypt.hash(senha, 10);
 
-    const novoUsuario = await prisma.usuario.create({ 
-      data: {
-        nome,
-        email,
-        senha: hash
-      }
-    });
+      const novoUsuario = await prisma.usuario.create({
+        data: {
+          nome,
+          email,
+          senha: hash
+        }
+      });
 
-    res.status(201).json(novoUsuario);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Erro ao criar usuário" });
-  }
+      res.status(201).json(novoUsuario);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Erro ao criar usuário" });
+    }
   },
 
   async update(req, res) {
