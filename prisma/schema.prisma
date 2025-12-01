@@ -36,13 +36,14 @@ model Registro {
   id              Int           @id @default(autoincrement())
   livroId         Int
   usuarioId       Int
-  comentario      String?       @db.Text // Comentário sobre o progresso de leitura
-  statusLeitura   StatusLeitura // Status de leitura (Lido, Lendo, etc.)
-  totalPaginas    Int? // Total de páginas do livro
-  paginaAtual     Int? // Página atual do progresso de leitura
-  dataAtualizacao DateTime      @default(now()) // Data da última atualização do progresso
-  livro           Livro         @relation(fields: [livroId], references: [id])
-  usuario         Usuario       @relation(fields: [usuarioId], references: [id])
+  comentario      String?       @db.Text
+  statusLeitura   StatusLeitura
+  totalPaginas    Int?
+  paginaAtual     Int?
+  dataAtualizacao DateTime      @default(now())
+
+  livro   Livro   @relation(fields: [livroId], references: [id], onDelete: Cascade)
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
 }
 
 enum TipoUsuario {
