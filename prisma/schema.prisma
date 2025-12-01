@@ -41,9 +41,6 @@ model Registro {
   totalPaginas    Int?
   paginaAtual     Int?
   dataAtualizacao DateTime      @default(now())
-
-  livro   Livro   @relation(fields: [livroId], references: [id], onDelete: Cascade)
-  usuario Usuario @relation(fields: [usuarioId], references: [id])
 }
 
 enum TipoUsuario {
