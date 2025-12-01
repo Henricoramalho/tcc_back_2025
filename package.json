@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "api/server.js",
   "scripts": {
+    "start": "npx prisma migrate deploy && node api/server.js",
     "dev": "npx nodemon api/server.js",
-    "postinstall": "prisma generate"
+    "postinstall": "npx prisma generate"
   },
   "keywords": [],
   "author": "Henricoramalho",
