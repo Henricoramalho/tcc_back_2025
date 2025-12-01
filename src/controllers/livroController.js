@@ -158,3 +158,11 @@ const remove = async (req, res) => {
     return res.status(500).json({ erro: "Erro ao deletar livro." });
   }
 };
+
+module.exports = {
+  create,
+  read,
+  readOne,
+  update,
+  remove,
+};
