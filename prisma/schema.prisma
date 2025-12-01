@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -34,8 +34,15 @@ model Usuario {
 
 model Registro {
   id              Int           @id @default(autoincrement())
+
+  // FK
   livroId         Int
   usuarioId       Int
+
+  // RELAÇÕES
+  livro           Livro         @relation(fields: [livroId], references: [id])
+  usuario         Usuario       @relation(fields: [usuarioId], references: [id])
+
   comentario      String?       @db.Text
   statusLeitura   StatusLeitura
   totalPaginas    Int?
