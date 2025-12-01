@@ -142,6 +142,12 @@ const remove = async (req, res) => {
       return res.status(404).json({ erro: "Livro não encontrado." });
     }
 
+    // 1. Remover registros que dependem do livro
+    await prisma.registro.deleteMany({
+      where: { livroId: Number(id) }
+    });
+
+    // 2. Remover o livro
     await prisma.livro.delete({
       where: { id: Number(id) },
     });
@@ -152,5 +158,3 @@ const remove = async (req, res) => {
     return res.status(500).json({ erro: "Erro ao deletar livro." });
   }
 };
-
-module.exports = { create, read, readOne, update, remove };
