@@ -10,4 +10,4 @@ app.use(routes);
 
 app.listen(port, (req, res) => {
     console.log('API respondendo em http://localhost:' + port)
-});
+}); 
